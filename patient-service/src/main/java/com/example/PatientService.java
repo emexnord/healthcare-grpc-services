@@ -36,6 +36,22 @@ public class PatientService extends PatientServiceGrpc.PatientServiceImplBase {
     @Override
     public void getPatientDetails(PatientDetailsRequest request,
             StreamObserver<PatientDetails> responseObserver) {
-        super.getPatientDetails(request, responseObserver);
+        var patient = patientRepository.findById(request.getPatientId());
+        if (patient.isPresent()) {
+            var p = patient.get();
+            var details = PatientDetails.newBuilder()
+                    .setPatientId(p.id)
+                    .setFirstName(p.firstName)
+                    .setLastName(p.lastName)
+                    .setEmail(p.email)
+                    .setPhoneNumber(p.phone)
+                    .setAddress(p.address)
+                    .build();
+            responseObserver.onNext(details);
+        } else {
+            responseObserver
+                    .onError(io.grpc.Status.NOT_FOUND.withDescription("Patient not found").asRuntimeException());
+        }
+        responseObserver.onCompleted();
     }
 }
