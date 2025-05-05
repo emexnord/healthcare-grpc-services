@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+package com.example.patient;
+
+service PatientService {
+  rpc RegisterPatient (PatientRegistrationRequest) returns (PatientRegistrationResponse);
+  rpc GetPatientDetails (PatientDetailsRequest) returns (PatientDetails);
+}
+
+message PatientRegistrationRequest {
+  string first_name = 1;
+  string last_name = 2;
+  string email = 3;
+  string phone_number = 4;
+  string address = 5;
+}
+
+message PatientRegistrationResponse {
+  int64 patient_id = 1;
+  string message = 2;
+}
+
+message PatientDetailsRequest {
+  int64 patient_id = 1;
+}
+
+message PatientDetails {
+  int64 patient_id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string phone_number = 5;
+  string address = 6;
+}

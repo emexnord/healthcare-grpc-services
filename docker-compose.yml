@@ -1,0 +1,30 @@
+services:
+  healtcare_db:
+    container_name: healthcare_db
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=java_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  healthcare_pgadmin:
+    container_name: healthcare_pgadmin
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL: admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      - healthcare_db
+    restart: unless-stopped
+
+volumes:
+  pgdata: {}
