@@ -6,10 +6,10 @@ import org.springframework.data.relational.core.mapping.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@Table("patient")
+@Table("doctor")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Patient {
+public class Doctor {
     @Id
     Long id;
 
@@ -17,6 +17,7 @@ public class Patient {
     String lastName;
     String email;
     String phone;
-    String address;
-
+    String specialty;
+    String centreName;
+    String location;
 }

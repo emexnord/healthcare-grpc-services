@@ -1,5 +1,6 @@
 package com.example;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.patient.PatientDetails;
@@ -15,6 +16,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class PatientService extends PatientServiceGrpc.PatientServiceImplBase {
 
+    @Autowired
     private final PatientRepository patientRepository;
 
     @Override

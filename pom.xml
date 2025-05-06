@@ -15,7 +15,7 @@
   </parent>
   <groupId>com.example</groupId>
   <artifactId>healthcare-app</artifactId>
-  <version>1.0.0</version>
+  <version>0.0.1-SNAPSHOT</version>
   <name>healthcare-app</name>
   <description>Health Care app</description>
   <packaging>pom</packaging>
@@ -176,7 +176,7 @@
             <exclude>
               <groupId>org.projectlombok</groupId>
               <artifactId>lombok</artifactId>
-              <version>1.18.34</version>
+              <!-- <version>1.18.34</version> -->
             </exclude>
           </excludes>
         </configuration>

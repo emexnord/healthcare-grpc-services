@@ -6,7 +6,7 @@
   <parent>
     <artifactId>healthcare-app</artifactId>
     <groupId>com.example</groupId>
-    <version>1.0.0</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <groupId>com.example</groupId>
@@ -29,6 +29,12 @@
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.example</groupId>
+      <artifactId>common-proto</artifactId>
+      <version>1.0.0</version>
     </dependency>
   </dependencies>
 

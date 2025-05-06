@@ -6,7 +6,7 @@
   <parent>
     <artifactId>healthcare-app</artifactId>
     <groupId>com.example</groupId>
-    <version>1.0.0</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <groupId>com.example</groupId>
