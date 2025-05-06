@@ -1,56 +1,62 @@
-// package com.example;
+package com.example;
 
-// import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;
 
-// import lombok.AllArgsConstructor;
+import com.example.doctor.DoctorDetails;
+import com.example.doctor.DoctorDetailsRequest;
+import com.example.doctor.DoctorRegistrationRequest;
+import com.example.doctor.DoctorRegistrationResponse;
+import com.example.doctor.DoctorServiceGrpc;
 
-// @Service
-// @AllArgsConstructor
-// public class DoctorService extends DoctorServiceGrpc.DoctorServiceImplBase {
+import io.grpc.stub.StreamObserver;
+import lombok.AllArgsConstructor;
 
-// private final DoctorRepository doctorRepository;
+@Service
+@AllArgsConstructor
+public class DoctorService extends DoctorServiceGrpc.DoctorServiceImplBase {
 
-// @Override
-// public void registerDoctor(DoctorRegistrationRequest request,
-// StreamObserver<DoctorRegistrationResponse> responseObserver) {
-// Doctor doctor = new Doctor(
-// null,
-// request.getFirstName(),
-// request.getLastName(),
-// request.getEmail(),
-// request.getPhoneNumber(),
-// request.getSpecialty(),
-// request.getCentreName(),
-// request.getLocation());
+    private final DoctorRepository doctorRepository;
 
-// doctor = doctorRepository.save(doctor);
-// responseObserver.onNext(DoctorRegistrationResponse.newBuilder().setDoctorId(doctor.id).build());
-// responseObserver.onCompleted();
-// }
+    @Override
+    public void registerDoctor(DoctorRegistrationRequest request,
+            StreamObserver<DoctorRegistrationResponse> responseObserver) {
+        Doctor doctor = new Doctor(
+                null,
+                request.getFirstName(),
+                request.getLastName(),
+                request.getEmail(),
+                request.getPhoneNumber(),
+                request.getSpecialty(),
+                request.getCenterName(),
+                request.getLocation());
 
-// @Override
-// public void getDoctorDetails(DoctorDetailsRequest request,
-// StreamObserver<DoctorDetails> responseObserver) {
-// var doctor = doctorRepository.findById(request.getDoctorId());
-// if (doctor.isPresent()) {
-// var d = doctor.get();
-// var details = DoctorDetails.newBuilder()
-// .setDoctorId(d.id)
-// .setFirstName(d.firstName)
-// .setLastName(d.lastName)
-// .setEmail(d.email)
-// .setPhoneNumber(d.phone)
-// .setSpecialty(d.specialty)
-// .setCentreName(d.centreName)
-// .setLocation(d.location)
-// .build();
-// responseObserver.onNext(details);
-// } else {
-// responseObserver
-// .onError(io.grpc.Status.NOT_FOUND.withDescription("Doctor not
-// found").asRuntimeException());
-// }
-// responseObserver.onCompleted();
-// }
+        doctor = doctorRepository.save(doctor);
+        responseObserver.onNext(DoctorRegistrationResponse.newBuilder().setDoctorId(doctor.id).build());
+        responseObserver.onCompleted();
+    }
 
-// }
+    @Override
+    public void getDoctorDetails(DoctorDetailsRequest request,
+            StreamObserver<DoctorDetails> responseObserver) {
+        var doctor = doctorRepository.findById(request.getDoctorId());
+        if (doctor.isPresent()) {
+            var d = doctor.get();
+            var details = DoctorDetails.newBuilder()
+                    .setDoctorId(d.id)
+                    .setFirstName(d.firstName)
+                    .setLastName(d.lastName)
+                    .setEmail(d.email)
+                    .setPhoneNumber(d.phone)
+                    .setSpecialty(d.specialty)
+                    .setCenterName(d.centreName)
+                    .setLocation(d.location)
+                    .build();
+            responseObserver.onNext(details);
+        } else {
+            responseObserver
+                    .onError(io.grpc.Status.NOT_FOUND.withDescription("Doctor not found").asRuntimeException());
+        }
+        responseObserver.onCompleted();
+    }
+
+}
