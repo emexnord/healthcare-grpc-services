@@ -7,5 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AppointmentApp {
     public static void main(String[] args) {
         SpringApplication.run(AppointmentApp.class, args);
+        System.out.println("Appointment Service is running...");
     }
 }
